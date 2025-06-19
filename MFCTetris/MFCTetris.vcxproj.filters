@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Исходные файлы\Public">
+      <UniqueIdentifier>{68466dcf-dc7c-4aa0-83d6-4062192cd530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Public\Dialogs">
+      <UniqueIdentifier>{3469484b-7579-4010-841b-4b03ada9298b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Public\Game">
+      <UniqueIdentifier>{0ed17c95-6a33-4f5e-bb3d-aa5b48dcd7ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Private">
+      <UniqueIdentifier>{44506a92-42c8-42c2-a554-f286e2d83d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Private\Dialogs">
+      <UniqueIdentifier>{0b524eb5-8f7e-46a6-9073-d4be69cdc59c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Private\Game">
+      <UniqueIdentifier>{2be2f098-9d1e-4a1a-92ce-be9501ea70cc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="External\SQLLite\sqlite3.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Dialogs\CTabGameDlg.h">
+      <Filter>Исходные файлы\Public\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Dialogs\CTabResultsDlg.h">
+      <Filter>Исходные файлы\Public\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Dialogs\MFCTetrisDlg.h">
+      <Filter>Исходные файлы\Public\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Game\Form.h">
+      <Filter>Исходные файлы\Public\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\Game\Game.h">
+      <Filter>Исходные файлы\Public\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Public\MFCTetris.h">
+      <Filter>Исходные файлы\Public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="External\SQLLite\sqlite3.c">
+      <Filter>Файлы заголовков</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\MFCTetris.cpp">
+      <Filter>Файлы заголовков\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Dialogs\CTabResultsDlg.cpp">
+      <Filter>Файлы заголовков\Private\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Dialogs\CTabGameDlg.cpp">
+      <Filter>Файлы заголовков\Private\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Dialogs\MFCTetrisDlg.cpp">
+      <Filter>Файлы заголовков\Private\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Game\Form.cpp">
+      <Filter>Файлы заголовков\Private\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Private\Game\Game.cpp">
+      <Filter>Файлы заголовков\Private\Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MFCTetris.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\MFCTetris.rc2">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\MFCTetris.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

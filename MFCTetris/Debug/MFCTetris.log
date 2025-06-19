@@ -1,0 +1,4 @@
+﻿  Form.cpp
+S:\C++ projects\MFCTetris\MFCTetris\Form.h(53,68): error C7525: Встроенные (inline) переменные требуют как минимум "/std:c++17".
+S:\C++ projects\MFCTetris\MFCTetris\Form.h(53,68): error C2864: "Form::TetrisFigures": статический элемент элемент данных с инициализатором внутри класса должен иметь неизменяемый целочисленный константный тип или должен быть указан как "inline"
+S:\C++ projects\MFCTetris\MFCTetris\Form.h(105,5): message : тип: const std::vector<std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>,std::allocator<std::vector<std::vector<int,std::allocator<int>>,std::allocator<std::vector<int,std::allocator<int>>>>>>
