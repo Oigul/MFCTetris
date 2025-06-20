@@ -3,9 +3,11 @@
 
 #include <ctime>
 
-Game::Game(int iType) : m_field(iRows, std::vector<int>(iCols, 0)), m_saveField(iRows, std::vector<int>(iCols, 0))
+Game::Game() : m_field(iRows, std::vector<int>(iCols, 0)), m_saveField(iRows, std::vector<int>(iCols, 0))
 {
-	m_CurentForm = std::make_unique<Form>(iType);
+	std::srand(std::time(nullptr));
+	int randomNumber = std::rand() % 7;    // от 0 до 6
+	m_CurentForm = std::make_unique<Form>(randomNumber);
 
 	for (int y = 0; y < m_CurentForm->GetRowCount(); ++y)
 	{
@@ -77,6 +79,12 @@ void Game::MoveDown()
 		m_CurentForm->MakeNewGrid(randomNumber);
 		m_iPosY = 0;
 		m_iPosX = 0;
+
+		if (!IntersectionCheck(m_iPosX, m_iPosY))
+		{
+			gameOver = true;
+			return;
+		}
 
 		return;
 	}
@@ -403,14 +411,9 @@ void Game::ClearLines()
 {
 	for (int y = iRows - 1; y >= 0; --y)
 	{
-		bool last = false;
-		bool rowAboveIsEmpty = false;
-
-		if (rowAboveIsEmpty)
-			last = true;
-
 		bool bThereIsAnEmptyCell = false;
 		int iPaintedOver = 0;
+		
 		for (int x = 0; x < iCols; ++x)
 		{
 			if (m_saveField[y][x] != 0)
@@ -428,8 +431,10 @@ void Game::ClearLines()
 		{
 			++m_score;
 
+			//bool last = false;
 			for (int y2 = y; y2 > 0; --y2)
 			{
+				int rowAboveIsEmpty = 0;
 				for (int x = 0; x < iCols; ++x)
 				{
 					if (m_saveField[y2 - 1][x] == 1)
@@ -437,17 +442,21 @@ void Game::ClearLines()
 						m_saveField[y2][x] = m_saveField[y2 - 1][x];
 					}
 					else
+					{
+						++rowAboveIsEmpty;
 						m_saveField[y2][x] = 0;
+					}
+				}
 
-					if(y2 - 2 >=0 && m_saveField[y2 - 2][x] == 1)
-						rowAboveIsEmpty = true;
+				//if (last == true)
+					//break;
+				if (rowAboveIsEmpty == iCols /* && last == false*/)
+				{
+					break;
 				}
 			}
+			++y;
 		}
 
-		if (last)
-		{
-			return;
-		};
 	}
 }

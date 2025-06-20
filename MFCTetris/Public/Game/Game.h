@@ -8,13 +8,14 @@
 class Game
 {
 public:
-	Game(int iType);
+	Game();
 
 	bool IsCellFilled(int x, int y) const;
 
 	int GetRowCount() const { return iRows; }
 	int GetColCount() const { return iCols; }
 	int GetCurrentScore() const { return m_score; }
+	bool GetGameOver() const { return gameOver; }
 
 	void Tick();
 	bool OnKeyDown(WPARAM key);
@@ -28,6 +29,7 @@ protected:
 	int m_iPosY = 0;
 
 	int m_score = 0;
+	bool gameOver = false;
 
 	std::vector<std::vector<int>> m_field;     //игровое поле
 	std::vector<std::vector<int>> m_saveField;

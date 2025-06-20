@@ -26,51 +26,11 @@ CMFCTetrisApp::CMFCTetrisApp()
 	// поддержка диспетчера перезагрузки
 	m_dwRestartManagerSupportFlags = AFX_RESTART_MANAGER_SUPPORT_RESTART;
 
-	// TODO: добавьте код создания,
-	// Размещает весь важный код инициализации в InitInstance
-
-	//OIGUL SQLLITE
-	const char* createTableSQL = "CREATE TABLE IF NOT EXISTS game_state (id INTEGER PRIMARY KEY, score INTEGER);";
-
-	sqlite3_open("game2.db", &db);
-
-	sqlite3_exec(db, createTableSQL, nullptr, nullptr, nullptr);
-
-	const char* selectSQL = "CREATE TABLE IF NOT EXISTS game_state ("
-							"id INTEGER PRIMARY KEY AUTOINCREMENT, "
-							"score INTEGER);";
-
-
-
-
-
-	//// Очищаем предыдущие данные
-	//m_ListCtrl.DeleteAllItems();
-
-	selectSQL = "SELECT score FROM game_state ORDER BY id DESC;";
-	sqlite3_stmt* stmt;
-
-	if (sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nullptr) == SQLITE_OK)
-	{
-		int row = 0;
-		while (sqlite3_step(stmt) == SQLITE_ROW)
-		{
-			int score = sqlite3_column_int(stmt, 0);
-
-			//CString str;
-			//str.Format(_T("%d очков"), score);
-
-			// Вставляем строку в ListCtrl в первую колонку
-			m_scores.push_back(score);
-		}
-		sqlite3_finalize(stmt);
-	}
-	else
-	{
-		//MessageBox(_T("Ошибка при загрузке результатов"), _T("Ошибка"), MB_ICONERROR);
-	}
-
+	
+	ConnectingBD(); 
+	RequestBD();
 }
+
 
 
 // Единственный объект CMFCTetrisApp
@@ -79,6 +39,46 @@ CMFCTetrisApp theApp;
 
 
 // Инициализация CMFCTetrisApp
+
+void CMFCTetrisApp::ConnectingBD()
+{
+	const char* createTableSQL = "CREATE TABLE IF NOT EXISTS game_state (id INTEGER PRIMARY KEY, score INTEGER);"; //Создаёт таблицу
+
+	sqlite3_open("game2.db", &db);																				   //открывает/создает файл
+
+	sqlite3_exec(db, createTableSQL, nullptr, nullptr, nullptr);												   //
+
+}
+
+void CMFCTetrisApp::SavingScores(int playerScore)
+{
+	const char* insertSQL = "INSERT INTO game_state (score) VALUES (?);";
+	sqlite3_stmt* stmt; //указатель на подготовленный SQL-запрос 
+	if (sqlite3_prepare_v2(db, insertSQL, -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		sqlite3_bind_int(stmt, 1, playerScore);
+		sqlite3_step(stmt);
+
+	}
+
+	sqlite3_finalize(stmt);
+}
+
+void CMFCTetrisApp::RequestBD()
+{
+	const char* selectSQL = "SELECT score FROM game_state ORDER BY id DESC;";
+	sqlite3_stmt* stmt; //указатель на подготовленный SQL-запрос 
+	if (sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nullptr) == SQLITE_OK)
+	{
+		int row = 0;
+		while (sqlite3_step(stmt) == SQLITE_ROW)
+		{
+			int score = sqlite3_column_int(stmt, 0);
+			m_scores.push_back(score);
+		}
+		sqlite3_finalize(stmt);
+	}
+}
 
 BOOL CMFCTetrisApp::InitInstance()
 {
@@ -118,32 +118,13 @@ BOOL CMFCTetrisApp::InitInstance()
 	INT_PTR nResponse = mainDlg.DoModal();
 	if (nResponse == IDOK)
 	{
-		//OIGUL SQLLITE
-		int playerScore = mainDlg.GetCurrentScore();
-		
-		// 1. SQL-команда вставки
-		const char* insertSQL = "INSERT INTO game_state (score) VALUES (?);";
-
-		// 2. Подготавливаем SQL-выражение
-		sqlite3_stmt* stmt;
-		if (sqlite3_prepare_v2(db, insertSQL, -1, &stmt, nullptr) == SQLITE_OK)
-		{
-			// 3. Подставляем значение игрока в SQL-запрос
-			sqlite3_bind_int(stmt, 1, playerScore);
-
-			// 4. Выполняем запрос
-			if (sqlite3_step(stmt) != SQLITE_DONE) {
-				//MessageBox(_T("Ошибка при сохранении результата"), _T("Ошибка"), MB_ICONERROR);
-			}
-		}
-
-		// 5. Освобождаем ресурсы
-		sqlite3_finalize(stmt);
+		SavingScores(mainDlg.GetCurrentScore());
+		sqlite3_close(db); 
 	}
 	else if (nResponse == IDCANCEL)
 	{
-		// TODO: Введите код для обработки закрытия диалогового окна
-		//  с помощью кнопки "Отмена"
+		SavingScores(mainDlg.GetCurrentScore());
+		sqlite3_close(db);
 	}
 	else if (nResponse == -1)
 	{

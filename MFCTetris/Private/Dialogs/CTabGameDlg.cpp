@@ -16,8 +16,7 @@ BOOL CTabGameDlg::OnInitDialog()
 	CDialogEx::OnInitDialog();
 
 
-	int randomNumber = std::rand() % 7;    // Число от 0 до 6
-	m_Game = std::make_unique<Game>(randomNumber);
+	m_Game = std::make_unique<Game>();
 
 	SetTimer(1, 500, NULL);
 	std::srand(std::time(nullptr));
@@ -28,12 +27,34 @@ BOOL CTabGameDlg::OnInitDialog()
 void CTabGameDlg::OnPaint()
 {
 	CPaintDC dc(this); // контекст устройства для рисования
+
 	DrawField(dc);
+
+	if (m_Game->GetGameOver())
+	{
+		CString strGameOver; 
+		strGameOver.Format(_T("Игра окончена. Счёт: %d"), m_Game->GetCurrentScore());
+
+		CRect rect;
+		GetClientRect(&rect); //прямоугольник клиентской области окна 
+
+		dc.DrawText(strGameOver, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	}
 }
 
 void CTabGameDlg::DrawField(CDC& dc)
 {
-	const int cellSize = 20;
+	//const int cellSize = 20;
+
+	CRect clientRect;
+	GetClientRect(&clientRect); //min(cellWidth, cellHeight)
+
+	int cellWidth = clientRect.Width() / m_Game->GetColCount();
+	int cellHeight = clientRect.Height() / m_Game->GetRowCount();
+
+	int cellSize = min(cellWidth, cellHeight);
+
 	for (int y = 0; y < m_Game->GetRowCount(); ++y)
 	{
 		for (int x = 0; x < m_Game->GetColCount(); ++x)

@@ -19,14 +19,15 @@ public:
 	CMFCTetrisApp();
 
 protected:
-	sqlite3* db;
-	//int m_score = 0;
 	std::vector<int> m_scores;
-// Переопределение
+
+	sqlite3* db;
+
+	void SavingScores(int playerScore);
+	void ConnectingBD();
+	void RequestBD();
 public:
 	virtual BOOL InitInstance();
-
-// Реализация
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -1,0 +1,33 @@
+*.obj
+*.pch
+*.pdb
+*.idb
+*.suo
+*.user
+*.aps
+*.ncb
+*.opensdf
+*.sdf
+*.VC.db
+*.ipch
+*.exe
+*.log
+*.tlog
+*.lastbuildstate
+*.cache
+*.ilk
+*.class
+
+# Папки
+/.vs/
+/Debug/
+/Release/
+/x64/
+/ipch/
+/out/
+
+# CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
